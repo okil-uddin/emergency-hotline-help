@@ -24,7 +24,7 @@ for (const heart of hearts) {
 
 const calls = document.getElementsByClassName('call-btn');
 
-const coinDisplay = getInnerText('coin-num');
+const coinDisplay = document.getElementById('coin-num');
 
 const historyPart = document.getElementById('call-history');
 
@@ -33,7 +33,7 @@ const clearBtn = document.getElementById('clear-btn');
 for (const call of calls) {
     call.addEventListener('click', function () {
 
-        const currentCoin = coinDisplay;
+        const currentCoin = parseInt(coinDisplay.innerText);
 
         if (currentCoin < 20) {
             alert('Not enough coins!');
@@ -43,9 +43,35 @@ for (const call of calls) {
         const serviceName = this.getAttribute('data-name');
         const serviceNum = this.getAttribute('data-num');
 
+        alert('Calling ' + serviceName + ': ' + serviceNum);
         coinDisplay.innerText = currentCoin - 20;
 
-        alert('Calling ' + serviceName + ': ' + serviceNum);
+        const time = new Date();
+        const realTime = time.toLocaleTimeString();
 
+        // History Function
+
+        const historyContainer = document.getElementById('call-history');
+
+        const div = document.createElement('div');
+
+        div.innerHTML = `
+        <div class="flex justify-between items-center bg-[#fafafa] p-5 rounded-2xl mt-5">
+                    <div>
+                        <h1 >${serviceName}</h1>
+                        <p class="text-[#5c5c5c]">${serviceNum}</p>
+                    </div>
+                    <div>
+                        <p>${realTime}</p>
+                    </div>
+                </div>
+        `;
+        historyContainer.appendChild(div);
+
+        // Clear Button Function
+        clearBtn.addEventListener('click', function () {
+            div.innerHTML = '';
+        });
     })
 }
+
