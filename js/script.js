@@ -75,3 +75,24 @@ for (const call of calls) {
     })
 }
 
+// Copy function
+
+const copyButton = document.getElementsByClassName('copy-btn');
+
+const copyCountDisplay = document.getElementById('copy-count');
+
+for (const btn of copyButton) {
+    btn.addEventListener('click', function () {
+        const card = this.closest('.card-copy');
+
+        const textToCopy = card.querySelector('.copy-text').innerText;
+
+        navigator.clipboard.writeText(textToCopy);
+
+        alert('Copied: ' + textToCopy);
+
+        const currentCount = parseInt(copyCountDisplay.innerText);
+        copyCountDisplay.innerText = currentCount + 1;
+        
+    });
+}
